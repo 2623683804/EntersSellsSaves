@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+	<insert id="zhuce" parameterType="user">
+		insert into s_user(id,uname,pass,phone,ctype)
+		values(my_sequence.nextval,#{uname},#{pass},#{phone},#{ctype})
+
+	</insert>
+	<select id="validateLogin" resultType="user">
+		select * from s_user
+		where uname=#{uname} and pass=#{pass}
+	</select>
+
+	<select id="queryByUname" resultType="user">
+		SELECT * from s_user where uname=#{uname}
+	</select>
+
+</mapper>

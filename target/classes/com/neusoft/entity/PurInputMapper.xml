@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="purinput">
+
+	<select id="queryAll" resultType="purinput">
+		select * from PUR_INPUT limit #{startrow} , #{pagesize}
+	</select>
+
+	<select id="searchFyCount" resultType="java.lang.Integer" >
+		select count(purinid) from PUR_INPUT
+	</select>
+
+	<select id="queryAll1" resultType="purinput">
+		select * from PUR_INPUT
+		where
+		purinid = #{purinid}
+	</select>
+	
+	<select id="queryById" resultType="purinput">
+		select * from PUR_INPUT
+		where
+		purinid = #{purinid}
+	</select>
+
+	<insert id="add">
+		insert into PUR_INPUT
+		(supno,supallname,cgdate,totalamount,comno,amount,unitprice)
+		values(#{supno},#{supallname},#{cgdate},#{totalamount},#{comno},#{amount},#{unitprice})
+	</insert>
+	
+	<update id="update">
+		update PUR_INPUT
+		<set>
+			<if test="supno!=null and supno!='' ">
+				supno=#{supno},
+			</if>
+			<if test="supallname!=null and supallname!='' ">
+				supallname=#{supallname},
+			</if>
+			<if test="cgdate!=null and cgdate!='' ">
+				cgdate=#{cgdate},
+			</if>
+			<if test="totalamount!=null and totalamount!='' ">
+				totalamount=#{totalamount},
+			</if>
+			<if test="comno!=null and comno!='' ">
+				comno=#{comno},
+			</if>
+			<if test="amount!=null and amount!='' ">
+				amount=#{amount},
+			</if>
+			<if test="unitprice!=null and unitprice!='' ">
+				unitprice=#{unitprice},
+			</if>
+		</set>
+		where purinid=#{purinid}
+	</update>
+
+	<!-- 商品表的安全库存、当前数量、最后采购日期的修改 -->
+	<update id="updateC">
+		update COMMODITY
+		<set>
+			<if test="amount!=null and amount!='' ">
+				amount=#{amount} +amount ,
+			</if>
+			<if test="amount!=null and amount!=''">
+				inventory=inventory-#{amount} ,
+			</if>
+			<if test="cgdate!=null and cgdate!='' ">
+				cgdate=#{cgdate}
+			</if>
+		</set>
+		where comno=#{comno}
+	</update>
+	
+	
+	<!-- 修改时 更新商品表的字段 -->
+	<update id="updateCX">
+		update COMMODITY
+		<set>
+			<if test="cgdate!=null and cgdate!='' ">
+				cgdate=#{cgdate}
+			</if>
+		</set>
+		where comno=#{comno}
+	</update>
+	<!-- 供应商标的最后采购日期修改 -->
+	<update id="updateG">
+		update SUPPLIER
+		<set>
+			<if test="cgdate!=null and cgdate!=''">
+				importdate=#{cgdate}
+			</if>
+		</set>
+		where supno=#{supno}
+	</update>
+
+	<delete id="delete">
+		delete from PUR_INPUT where purinid=#{purinid}
+	</delete>
+
+</mapper>

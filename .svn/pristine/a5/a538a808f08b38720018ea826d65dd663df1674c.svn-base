@@ -1,0 +1,42 @@
+package com.neusoft.lhs.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.neusoft.entity.PurInput;
+import com.neusoft.lhs.dao.PurInputDAOI;
+
+@Service
+public class PurInputService implements PurInputServiceI{
+
+	@Autowired
+	private PurInputDAOI dao;
+	
+	@Override
+	public List<PurInput> queryAll(PurInput puri) {
+		return dao.queryAll(puri);
+	}
+	@Override
+	public int add(PurInput puri) {
+		
+		return dao.add(puri);
+	}
+	@Override
+	public int update(PurInput puri) {
+		return dao.update(puri);
+	}
+	@Override
+	public int delete(Integer purinid) {
+		return dao.delete(purinid);
+	}
+	@Override
+	public PurInput queryById(Integer purinid) {
+		
+		return dao.queryById(purinid);
+	}
+
+	
+
+}

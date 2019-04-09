@@ -1,0 +1,63 @@
+$(function() {
+	//进入录入界面
+	$("#add").click(function() {
+		$("#div_entering").css("display", "block");
+	});
+	
+	//删除
+	function removeTr(aNoe) {//获取 a 节点所在的的 tr 节点. 返回时是 jQuery 对象
+		var $trNode = $(aNoe).parent().parent();
+		var textContent = $trNode.find("td:first").text();
+		textContent = $.trim(textContent);
+		var flag = confirm("确定要删除" + textContent + "的信息吗?");
+		if(flag) {
+			$trNode.remove();
+		}
+		return false;
+	}
+
+	$("#tab a").click(function() {
+		return removeTr(this);
+	});
+
+	//录入
+	$("#submit_01").click(function() {
+		alert("确认提交");
+		$("<tr></tr>").append("<td>" + $("#id1").val() + "</td>")
+			.append("<td>" + $("#name").val() + "</td>")
+			.append("<td>" + $("#id2").val() + "</td>")
+			.append("<td>" + $("#date").val() + "</td>")
+			.append("<td>" + $("#bigmoney").val() + "</td>")
+			.append("<td>" + $("#bid").val() + "</td>")
+			.append("<td>" + $("#number").val() + "</td>")
+			.append("<td>" + $("#smamoney").val() + "</td>")
+			.append("<td><button class='btn btn-warning btn-sm' type='button' id='set'>修改</button> <a href='deleteEmp?id=xxx' class='btn btn-danger btn-sm' role='button'>Delete</a></td>")
+			.appendTo("#tab tbody").find("a")
+			.click(function() {
+				return removeTr(this);
+			});
+		alert("提交成功");
+		$("#div_entering").css("display", "none");
+	});
+	//取消录入
+	$("#cancel").click(function() {
+		$("#div_entering").css("display", "none");
+	});
+
+	//修改
+	$("#set").click(function() {
+		$("#div_set").css("display", "block");
+	});
+
+	$("#submit_02").click(function() {
+		//
+		alert("修改成功");
+		$("#div_set").css("display", "none");
+	});
+
+	$("#cancel_01").click(function() {
+		$("#div_set").css("display", "none");
+	});
+
+
+});

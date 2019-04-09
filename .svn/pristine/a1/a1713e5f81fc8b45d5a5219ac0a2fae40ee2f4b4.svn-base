@@ -1,0 +1,232 @@
+--销售员
+prompt PL/SQL Developer import file
+prompt Created on 2018年6月7日 by new
+set feedback off
+set define off
+prompt Dropping SALESMAN...
+drop table SALESMAN cascade constraints;
+prompt Creating SALESMAN...
+create table SALESMAN
+(
+  salesno NUMBER not null,
+  chiname VARCHAR2(10),
+  engname VARCHAR2(10),
+  tel     VARCHAR2(20),
+  mobtel  VARCHAR2(20),
+  address VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table SALESMAN
+  add constraint SALESMAN_SALESNO_PK primary key (SALESNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+prompt Disabling triggers for SALESMAN...
+alter table SALESMAN disable all triggers;
+prompt Loading SALESMAN...
+insert into SALESMAN (salesno, chiname, engname, tel, mobtel, address)
+values (1, '汤姆', 'tom', '18888888888', '18888888888', 'dalian');
+commit;
+prompt 1 records loaded
+prompt Enabling triggers for SALESMAN...
+alter table SALESMAN enable all triggers;
+set feedback on
+set define on
+prompt Done.
+--商品
+prompt PL/SQL Developer import file
+prompt Created on 2018年6月7日 by new
+set feedback off
+set define off
+prompt Dropping COMMODITY...
+drop table COMMODITY cascade constraints;
+prompt Creating COMMODITY...
+create table COMMODITY
+(
+  comno      NUMBER not null,
+  comname    VARCHAR2(10),
+  inventory  NUMBER,
+  amount     NUMBER,
+  cgprice    NUMBER,
+  salesprice NUMBER,
+  cgdate     DATE,
+  salesdate  DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table COMMODITY
+  add constraint COMMODITY_COMNO_PK primary key (COMNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+prompt Disabling triggers for COMMODITY...
+alter table COMMODITY disable all triggers;
+prompt Loading COMMODITY...
+insert into COMMODITY (comno, comname, inventory, amount, cgprice, salesprice, cgdate, salesdate)
+values (1, 'sofa', 10000, 10000, 2000, 4000, to_date('08-08-2008', 'dd-mm-yyyy'), to_date('08-08-2018', 'dd-mm-yyyy'));
+commit;
+prompt 1 records loaded
+prompt Enabling triggers for COMMODITY...
+alter table COMMODITY enable all triggers;
+set feedback on
+set define on
+prompt Done.
+--客户
+prompt PL/SQL Developer import file
+prompt Created on 2018年6月7日 by new
+set feedback off
+set define off
+prompt Dropping CUSTOMER...
+drop table CUSTOMER cascade constraints;
+prompt Creating CUSTOMER...
+create table CUSTOMER
+(
+  cusno      NUMBER not null,
+  cusname    VARCHAR2(10),
+  cusallname VARCHAR2(10),
+  head       VARCHAR2(10),
+  headname   VARCHAR2(10),
+  tel        VARCHAR2(20),
+  fax        VARCHAR2(20),
+  mobtel     VARCHAR2(20),
+  salesman   VARCHAR2(10),
+  cusaddress VARCHAR2(10),
+  deladdress VARCHAR2(10)
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table CUSTOMER
+  add constraint CUSTOMER_CUSNO_PK primary key (CUSNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+prompt Disabling triggers for CUSTOMER...
+alter table CUSTOMER disable all triggers;
+prompt Loading CUSTOMER...
+insert into CUSTOMER (cusno, cusname, cusallname, head, headname, tel, fax, mobtel, salesman, cusaddress, deladdress)
+values (1, '东软', 'neusoft', '王', '王大大', '18888888888', '18888888888', '18888888888', 'tom', 'dalian', 'dalian');
+commit;
+prompt 1 records loaded
+prompt Enabling triggers for CUSTOMER...
+alter table CUSTOMER enable all triggers;
+set feedback on
+set define on
+prompt Done.
+--供应商
+prompt PL/SQL Developer import file
+prompt Created on 2018年6月7日 by new
+set feedback off
+set define off
+prompt Dropping SUPPLIER...
+drop table SUPPLIER cascade constraints;
+prompt Creating SUPPLIER...
+create table SUPPLIER
+(
+  supno      NUMBER not null,
+  supname    VARCHAR2(10),
+  supallname VARCHAR2(10),
+  head       VARCHAR2(10),
+  headname   VARCHAR2(10),
+  tel        VARCHAR2(20),
+  fax        VARCHAR2(20),
+  mobtel     VARCHAR2(20),
+  address    VARCHAR2(20),
+  facaddress VARCHAR2(20),
+  importdate DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table SUPPLIER
+  add constraint SUPPLIER_SUPNO_PK primary key (SUPNO)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+prompt Disabling triggers for SUPPLIER...
+alter table SUPPLIER disable all triggers;
+prompt Loading SUPPLIER...
+insert into SUPPLIER (supno, supname, supallname, head, headname, tel, fax, mobtel, address, facaddress, importdate)
+values (1, '睿道', '东软睿道', '是', '是不是', '18888888888', '18888888888', '18888888888', 'dalian', 'dalian', to_date('07-06-2018', 'dd-mm-yyyy'));
+commit;
+prompt 1 records loaded
+prompt Enabling triggers for SUPPLIER...
+alter table SUPPLIER enable all triggers;
+set feedback on
+set define on
+prompt Done.

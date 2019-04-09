@@ -1,0 +1,12 @@
+
+#div_entering{
+ 	display: none;
+ 	background-color: #CCCCCC;
+ }
+#div_set{
+	background-color: #DDDDDD;
+}
+
+#div_1{
+	float: right;
+}

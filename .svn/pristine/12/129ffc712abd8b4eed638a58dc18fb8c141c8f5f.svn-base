@@ -1,0 +1,49 @@
+package com.neusoft.zh.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.neusoft.entity.Report;
+
+@Repository
+public class ReportDAO extends SqlSessionDaoSupport implements ReportDAOI{
+
+	@Override@Autowired
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		// TODO Auto-generated method stub
+		super.setSqlSessionFactory(sqlSessionFactory);
+	}
+	@Override
+	public List<Report> query1(Report r) {
+		// TODO Auto-generated method stub
+		return getSqlSession().selectList("report.query1",r);
+	}
+	@Override
+	public List<Report> query2(Report r) {
+		// TODO Auto-generated method stub
+		return getSqlSession().selectList("report.query2",r);
+	}
+	@Override
+	public List<Report> query4(Report r) {
+		// TODO Auto-generated method stub
+		return getSqlSession().selectList("report.query4",r);
+	}
+	@Override
+	public List<Report> query3BySupno(Report r) {
+		// TODO Auto-generated method stub
+		return getSqlSession().selectList("report.query3BySupno",r);
+	}
+	public List<Report> query3ByComname(Report r) {
+		// TODO Auto-generated method stub
+		return getSqlSession().selectList("report.query3ByComname",r);
+	}
+	public List<Report> query3BySalesmanid(Report r) {
+		// TODO Auto-generated method stub
+		return getSqlSession().selectList("report.query3BySalesmanid",r);
+	}
+
+}

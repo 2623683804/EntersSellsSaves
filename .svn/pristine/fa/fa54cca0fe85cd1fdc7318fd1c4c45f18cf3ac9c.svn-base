@@ -1,0 +1,157 @@
+package com.neusoft.entity;
+
+import java.util.Date;
+
+public class Report {
+private Integer comno;//商品编号
+private String comname;//商品名称
+private Integer inventory;//安全库存
+private Integer damount;//当前库存
+private Integer cgprice;//指导进价
+private Integer salesprice;//指导售价
+private Date salesdate;//最近销售日
+private Date cgdate;//最近进货日
+private Integer supno;//供应商id
+private String supname;//供应商名字
+private Integer sum;//金额
+private Integer amount;//数量
+private String unit;//单位
+private Integer salesmanid;//业余员工编号
+private Integer total;//总计
+private Integer month;
+public Report() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+public Report(Integer comno, String comname, Integer inventory,
+		Integer damount, Integer cgprice, Integer salesprice, Date salesdate,
+		Date cgdate, Integer supno, String supname, Integer sum,
+		Integer amount, String unit, Integer salesmanid, Integer total,
+		Integer month) {
+	super();
+	this.comno = comno;
+	this.comname = comname;
+	this.inventory = inventory;
+	this.damount = damount;
+	this.cgprice = cgprice;
+	this.salesprice = salesprice;
+	this.salesdate = salesdate;
+	this.cgdate = cgdate;
+	this.supno = supno;
+	this.supname = supname;
+	this.sum = sum;
+	this.amount = amount;
+	this.unit = unit;
+	this.salesmanid = salesmanid;
+	this.total = total;
+	this.month = month;
+}
+public Integer getComno() {
+	return comno;
+}
+public void setComno(Integer comno) {
+	this.comno = comno;
+}
+public String getComname() {
+	return comname;
+}
+public void setComname(String comname) {
+	this.comname = comname;
+}
+public Integer getInventory() {
+	return inventory;
+}
+public void setInventory(Integer inventory) {
+	this.inventory = inventory;
+}
+public Integer getDamount() {
+	return damount;
+}
+public void setDamount(Integer damount) {
+	this.damount = damount;
+}
+public Integer getCgprice() {
+	return cgprice;
+}
+public void setCgprice(Integer cgprice) {
+	this.cgprice = cgprice;
+}
+public Integer getSalesprice() {
+	return salesprice;
+}
+public void setSalesprice(Integer salesprice) {
+	this.salesprice = salesprice;
+}
+public Date getSalesdate() {
+	return salesdate;
+}
+public void setSalesdate(Date salesdate) {
+	this.salesdate = salesdate;
+}
+public Date getCgdate() {
+	return cgdate;
+}
+public void setCgdate(Date cgdate) {
+	this.cgdate = cgdate;
+}
+public Integer getSupno() {
+	return supno;
+}
+public void setSupno(Integer supno) {
+	this.supno = supno;
+}
+public String getSupname() {
+	return supname;
+}
+public void setSupname(String supname) {
+	this.supname = supname;
+}
+public Integer getSum() {
+	return sum;
+}
+public void setSum(Integer sum) {
+	this.sum = sum;
+}
+public Integer getAmount() {
+	return amount;
+}
+public void setAmount(Integer amount) {
+	this.amount = amount;
+}
+public String getUnit() {
+	return unit;
+}
+public void setUnit(String unit) {
+	this.unit = unit;
+}
+public Integer getSalesmanid() {
+	return salesmanid;
+}
+public void setSalesmanid(Integer salesmanid) {
+	this.salesmanid = salesmanid;
+}
+public Integer getTotal() {
+	return total;
+}
+public void setTotal(Integer total) {
+	this.total = total;
+}
+public Integer getMonth() {
+	return month;
+}
+public void setMonth(Integer month) {
+	this.month = month;
+}
+@Override
+public String toString() {
+	return "Report [comno=" + comno + ", comname=" + comname + ", inventory="
+			+ inventory + ", damount=" + damount + ", cgprice=" + cgprice
+			+ ", salesprice=" + salesprice + ", salesdate=" + salesdate
+			+ ", cgdate=" + cgdate + ", supno=" + supno + ", supname="
+			+ supname + ", sum=" + sum + ", amount=" + amount + ", unit="
+			+ unit + ", salesmanid=" + salesmanid + ", total=" + total
+			+ ", month=" + month + "]";
+}
+
+
+}

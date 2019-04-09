@@ -1,0 +1,50 @@
+package com.neusoft.zh.Controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.neusoft.entity.User;
+import com.neusoft.zh.Service.UserServiceI;
+@Controller
+public class UserController {
+
+	@Autowired
+	private UserServiceI service;
+
+	@RequestMapping(value = "user", params = "act=zhuce")
+	public String doAdd(HttpServletRequest req, User u) {
+		String str = "/zhuce.jsp";
+
+		int i = service.add(u);
+		if (i > 0) {
+			
+			str = "/login.jsp";
+		} else {
+			
+			req.setAttribute("u", u);
+		}
+		return str;
+
+	}
+
+	@RequestMapping(value = "/user", params = "act=queryByUname")
+	public void doCheck(User u, HttpServletResponse resp) throws IOException {
+
+		User u2 = service.queryByUname(u.getUname());
+
+		PrintWriter out = resp.getWriter();
+		if (u2 != null) {
+			out.print("true");
+		} else {
+			out.print("false");
+		}
+		out.close();
+	}
+}

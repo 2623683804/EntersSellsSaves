@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="report">
+	<select id="query1" resultType="report">
+	select comno,comname,inventory,damount from r_export
+	<where>
+	<if test="comno!=null and comno!=''">
+	and comno=#{comno}
+	</if>
+	</where>
+	</select>
+	
+	<select id="query2" resultType="report">
+	select comno,comname,cgprice,salesprice,inventory,damount,salesdate,cgdate from r_export
+	<where>
+	<if test="comno!=null and comno!=''">
+	and comno=#{comno}
+	</if>
+	</where>
+	</select>
+	
+	<select id="query3ByComname" resultType="report">
+	select comno,comname,amount,unit,sum,(amount*sum)total from r_export 
+	<where>
+	<if test="comname!=null and comname!=''">
+	 and comname=#{comname}
+	</if>
+	</where>
+	</select>
+	<select id="query3BySupno" resultType="report">
+	select supno,supname,comno，comname，amount，unit，sum,(amount*sum)total from r_export 
+	<where>
+	<if test="supno!=null and supno!=''">
+	 and supno=#{supno}
+	</if>
+	</where>
+	</select>
+	<select id="query3BySalesmanid" resultType="report">
+	select salesmanid,sum,(amount*sum)total from r_export 
+	<where>
+	<if test="salesmanid!=null and salesmanid!=''">
+	 and salesmanid=#{salesmanid}
+	</if>
+	</where>
+	</select>
+	
+	
+	<select id="query4" resultType="report">
+	select (amount*sum) total,extract(month from salesdate) month from r_export
+	<where>
+	<if test="month!=null and month!=''">
+	and month=#{month}
+	</if>
+	
+	</where>
+	
+	</select>
+</mapper>

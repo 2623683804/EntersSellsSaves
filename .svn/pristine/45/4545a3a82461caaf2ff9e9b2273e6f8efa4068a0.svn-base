@@ -1,0 +1,40 @@
+package com.neusoft.zh.dao;
+
+import java.util.List;
+
+import com.neusoft.entity.Power;
+import com.neusoft.entity.User;
+
+public interface UserDAOI {
+	//看用户名是否重复
+	public abstract User queryByUname(String uname);
+	
+	//增加记录
+	public abstract int add(User u);
+
+
+	//验证登录：如果成功，则返回该User对象；否则返回 null；
+	public abstract User validateLogin(String uname, String pass);
+
+	public abstract User queryById(Integer id);
+    
+	//查询所有记录
+	public abstract List<User> queryAll(User u);
+
+	public abstract int update(User u);
+
+	public abstract int delete(Integer id);
+	
+	
+	
+	
+	public abstract List<User> queryAll2(User u);
+	
+	public abstract int update2(User u);
+
+	public abstract int delete2(Integer id);
+
+	public abstract Power power(Integer id);
+	
+	public abstract List<Power> selectByRoleId(Integer id);
+}

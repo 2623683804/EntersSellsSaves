@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SellReturn">
+
+	<select id="queryAll" resultType="SellReturn">
+		select * from sellre
+		<where>
+			<if test="sellreid!='' and sellreid!=null">
+				and sellreid = #{sellreid}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryById" resultType="SellReturn">
+		select * from sellre
+		where sellreid = #{sellreid}
+	</select>
+	
+	
+	<insert id="add" >
+		insert into sellre (cusno,cusname,sellreid,xthdate,totalamount,comno,amount,unitprice) 
+		values(#{cusno},#{cusname},my_sequence.nextval,#{xthdate},#{totalamount},#{comno},#{amount},#{unitprice})
+		<selectKey keyProperty="sellreid" order="AFTER" resultType="Integer">
+			select
+			my_sequence.currval from dual
+		</selectKey>
+	</insert>
+
+	<update id="update">
+		update sellre
+		<set>
+			<if test="cusno!=null and cusno!='' ">
+				cusno=#{cusno},
+			</if>
+			<if test="cusname!=null and cusname!='' ">
+				cusname=#{cusname},
+			</if>
+			<if test="xthdate!=null and xthdate!='' ">
+				xthdate=#{xthdate},
+			</if>
+			<if test="totalamount!=null and totalamount!='' ">
+				totalamount=#{totalamount},
+			</if>
+			<if test="comno!=null and comno!='' ">
+				comno=#{comno},
+			</if>
+			<if test="amount!=null and amount!='' ">
+				amount=#{amount},
+			</if>
+			<if test="unitprice!=null and unitprice!='' ">
+				unitprice=#{unitprice},
+			</if>
+		</set>
+		where sellreid=#{sellreid}
+	</update>
+<!-- 增加时  对商品表的安全库存、当前数量、最后采购日期的修改 -->
+	<update id="updateC">
+		update COMMODITY 
+		<set>
+			<if test="amount!=null and amount!='' ">
+				amount= amount + #{amount} ,
+			</if>
+			<if test="amount!=null and amount!=''">
+				inventory=inventory - #{amount} ,
+			</if>
+			<if test="xthdate!=null and xthdate!='' ">
+				salesdate=#{xthdate},
+			</if>
+		</set>
+		where comno=#{comno}
+	</update>
+	
+	<update id="updateD">
+		update COMMODITY 
+		<set>
+			<if test="xthdate!=null and xthdate!='' ">
+				salesdate=#{xthdate},
+			</if>
+		</set>
+		where comno=#{comno}
+	</update>
+	
+	<delete id="delete">
+		delete from sellre where sellreid=#{sellreid}
+	</delete>
+	
+</mapper>

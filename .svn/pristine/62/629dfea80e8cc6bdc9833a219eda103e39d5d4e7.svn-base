@@ -1,0 +1,79 @@
+package com.neusoft.lhs.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.neusoft.entity.PurInput;
+import com.neusoft.lhs.service.PurInputServiceI;
+
+@Controller
+public class PurInputController {
+
+	@Autowired
+	private PurInputServiceI service;// 注入PurInputService
+	
+	@RequestMapping(value = "/purinput", params = "act=query")//查全部表单，或以单号搜索记录
+	public String doQuery(HttpServletRequest req,PurInput puri){
+		String str = "/purchase/purchase_sales_input.jsp";
+		List<PurInput> list = service.queryAll(puri);
+		req.setAttribute("list", list);
+		return str;
+	}
+	
+	@RequestMapping(value = "/purinput", params = "act=purinputadd")
+	public String doAdd(HttpServletRequest req,PurInput puri){
+		String str = "/purchase/purchase_sales_input.jsp";
+		int i = service.add(puri);
+		service.updateC(puri);
+		if (i > 0) {
+			req.setAttribute("msg", "add ok");
+		}else{
+			req.setAttribute("msg", "add error");
+			req.setAttribute("puri", puri);
+		}
+		return str;
+	}
+	
+	@RequestMapping(value="/purinput", params="act=update")
+	public String doUpdate(HttpServletRequest req,PurInput puri){
+		String str = "/purchase/pur_input_set.jsp";
+		PurInput p = service.queryById(puri.getPurinid());
+		req.setAttribute("puri", p);
+		return str;
+
+	}
+	
+	@RequestMapping(value="/purinput", params="act=toUpdate")
+	public String doToUpdate(HttpServletRequest req,PurInput puri){
+		String str = "/purchase/purchase_sales_input.jsp";
+		int i = service.update(puri);
+		
+		if (i > 0) {
+			req.setAttribute("msg", "add ok");
+		}else{
+			req.setAttribute("msg", "add error");
+			req.setAttribute("puri", puri);
+		}
+		return str;
+		
+	}
+	@RequestMapping(value="/purinput", params="act=delete")
+	public String doDelect(HttpServletRequest req,PurInput puri){
+		String str = "/purchase/purchase_sales_input.jsp";
+		int i = service.delete(puri.getPurinid());
+		if (i > 0) {
+			req.setAttribute("msg", "删除成功");
+		} else {
+			req.setAttribute("msg", "删除失败");
+		}
+
+		return str;
+		
+	}
+}

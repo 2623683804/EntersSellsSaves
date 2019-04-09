@@ -1,0 +1,269 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>进销存系统--采购入库</title>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/pur-sa.css" />
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/purchase-sales-input.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">
+						<img alt="Brand" src="<%=request.getContextPath()%>/img/4305161-201802281415253083.jpg" width="30px">
+					</a>
+				</div>
+				<ul class="nav navbar-nav" id="nav">
+					<li class="active">
+						<a href="#">Home</a>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+							维护基本资料
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<div class="list-group">
+								<a href="<%=request.getContextPath()%>/rsxz/基本资料维护.html" class="list-group-item">基本资料维护</a>
+								<a href="<%=request.getContextPath()%>/rsxz/商品资料维护.html" class="list-group-item">商品资料维护</a>
+								<a href="<%=request.getContextPath()%>/rsxz/客户资料维护.html" class="list-group-item">客户资料维护</a>
+								<a href="<%=request.getContextPath()%>/rsxz/供应商资料维护.html" class="list-group-item">供应商资料维护</a>
+							</div>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+							采购
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<div class="list-group" id="lg">
+								<a href="<%=request.getContextPath()%>/purchase/purchase_sales_input.html" class="list-group-item">采购入库</a>
+								<a href="<%=request.getContextPath()%>/purchase/purchase_sales_return.html" class="list-group-item">采购退货</a>
+							</div>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+							销售
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<div class="list-group" id="lg">
+								<a href="<%=request.getContextPath()%>/sell/sell_sales_output.html" class="list-group-item">销售出库</a>
+								<a href="<%=request.getContextPath()%>/sell/sell_sales_return.html" class="list-group-item">销售退货</a>
+							</div>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+							库存
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<div class="list-group" id="lg">
+								<a href="<%=request.getContextPath()%>/stock_inquiry/stock_inquiry.html" class="list-group-item">库存查询</a>
+							</div>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+							维护系统
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<div class="list-group" id="lg">
+								<a href="<%=request.getContextPath()%>/client/whyhzl.html" class="list-group-item">维护用户资料</a>
+								<a href="<%=request.getContextPath()%>/client/yhqx.html" class="list-group-item">管理用户权限</a>
+								<a href="<%=request.getContextPath()%>/client/xgmm.html" class="list-group-item">修改密码</a>
+							</div>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+							报表导出
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+							<div class="list-group" id="lg">
+								<a href="<%=request.getContextPath()%>/item/kcyj.html" class="list-group-item">导出库存预警</a>
+								<a href="<%=request.getContextPath()%>/item/SPZL.html" class="list-group-item">导出商品资料</a>
+								<a href="<%=request.getContextPath()%>/item/cgbb.html" class="list-group-item">导出采购报表</a>
+								<a href="<%=request.getContextPath()%>/item/ncgbb.html" class="list-group-item">导出年采购报表</a>
+							</div>
+						</ul>
+					</li>
+				</ul>
+				<form class="navbar-form navbar-left">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="search" />
+					</div>
+					<button type="submit" class="btn btn-success">Search</button>
+				</form>
+				<a href="../login.html" class="btn btn-info navbar-right navbar-btn">登录</a>
+			</div>
+		</nav>
+		<div class="container" id="containe">
+			<div>
+				<form class="form-inline">
+					<div class="form-group">
+						<label><span class="glyphicon glyphicon-apple"></span>采购入库</label>
+					</div>
+					<button class="btn btn-primary" type="button" id="add">增加</button>
+					<form name="search" class="search" method="post">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="请输入单号">
+					</div>
+					<button type="submit" class="btn  btn-info" >搜索</button>
+				</form>
+			</div>
+			<!--增加-->
+			<div id="div_entering">
+				<form>
+					<div class="form-group">
+						<label>供应商编号:</label>
+						<input type="text" placeholder="以#G开头" class="form-control" id="id1" />
+					</div>
+					<div class="form-group">
+						<label>供应商名称:</label>
+						<input type="text" placeholder="请输入供应商名称" class="form-control" id="name" />
+					</div>
+					<div class="form-group">
+						<label>采购单单号:</label>
+						<input type="text" placeholder="输入不能超过8位字符" class="form-control" id="id2" />
+					</div>
+					<div class="form-group">
+						<label>采购日期:</label>
+						<input type="text" placeholder="2015-02-03" class="form-control" id="date" />
+					</div>
+					<div class="form-group">
+						<label>总金额:</label>
+						<input type="text" placeholder="请输入总金额" class="form-control" id="bigmoney" />
+					</div>
+					<div class="form-group">
+						<label>商品编号:</label>
+						<input type="text" placeholder="输入不能超过8位字符" class="form-control" id="bid" />
+					</div>
+					<div class="form-group">
+						<label>商品数量:<label>
+						<input type="text" min="1" step="50" max="500" value="1" class="form-control" id="number"/>
+					</div>
+					<div class="form-group">
+						<label>单价:<label>
+						<input type="text" placeholder="请输入单价" class="form-control" id="smamoney"/>
+					</div>
+					<!--应该用submit,未连接数据库暂时用button写一个假的增加-->
+					<input type="button" id="submit_01" value="录入采购入库单" class="btn btn-success"/>
+					<input type="button" value="取消录入" id="cancel" class="btn btn-default"/>
+				</form>
+			</div>
+			<!--修改（没写）-->
+			<div id="div_set">
+				<h2>对采购入库单单号为“  XXX  ”的记录进行修改</h2>
+				<form method="get" id="myForm_01">
+					<div class="form-group">
+						<label>供应商编号:</label>
+						<input type="text" placeholder="以#G开头" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label>供应商名称:</label>
+						<input type="text" placeholder="请输入供应商名称" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label>采购日期:</label>
+						<input type="text" name="date"  placeholder="2015-02-03" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label>总金额:</label>
+						<input type="text" placeholder="请输入总金额" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label>商品编号:</label>
+						<input type="text" placeholder="输入不能超过8位字符" class="form-control" />
+					</div>
+					<div class="form-group">
+						<label>商品数量:<label>
+						<input type="text" min="1" step="50" max="500" value="1" class="form-control"/>
+					</div>
+					<div class="form-group">
+						<label>单价:<label>
+						<input type="text" placeholder="请输入单价" class="form-control" />
+					</div>
+					<!--应该用submit,未连接数据库暂时用button写一个假的修改-->
+					<input type="button" id="submit_02" value="保存"  class="btn btn-success"/>
+					<input type="button" value="取消修改" id="cancel_01" class="btn btn-default"/>
+				</form>
+			</div>
+
+			<br />
+			<div class="row">
+				
+				<table class="table table-striped table-bordered table-hover table-condensed" id="tab">
+					<tbody>
+					<tr class="info">
+						<th width="10%">供应商编号</th>
+						<th width="10%">供应商名称</th>
+						<th width="10%">采购单单号</th>
+						<th width="10%">采购日期</th>
+						<th width="10%">总金额</th>
+						<th width="10%">商品编号</th>
+						<th width="10%">商品数量</th>
+						<th width="10%">单价</th>
+						<th width="20%">操作</th>
+					</tr>
+					<tr>
+						<td>#G0001</td>
+						<td>海尔</td>
+						<td>#C0001</td>
+						<td>2018-05-01</td>
+						<td>1,000,000.00</td>
+						<td>#S0001</td>
+						<td>50</td>
+						<td>2000.00</td>
+						<td>
+							<button class="btn btn-warning btn-sm" type="button" id="set">修改</button>
+							<a href="deleteEmp?id=001" class="btn btn-danger btn-sm" role="button">Delete</a>
+						</td>
+					</tr>
+					<tr>
+						<td>#G0002</td>
+						<td>海尔</td>
+						<td>#C0001</td>
+						<td>2018-05-01</td>
+						<td>1,000,000.00</td>
+						<td>#S0001</td>
+						<td>50</td>
+						<td>2000.00</td>
+						<td>
+							<button class="btn btn-warning btn-sm" type="button" id="set">修改</button>
+							<a href="deleteEmp?id=002" class="btn btn-danger btn-sm" role="button">Delete</a>
+							
+						</td>
+					</tr>
+					<tr>
+						<td>#G0003</td>
+						<td>海尔</td>
+						<td>#C0001</td>
+						<td>2018-05-01</td>
+						<td>1,000,000.00</td>
+						<td>#S0001</td>
+						<td>50</td>
+						<td>2000.00</td>
+						<td>
+							<button class="btn btn-warning btn-sm" type="button" id="set">修改</button>
+							<a href="deleteEmp?id=003" class="btn btn-danger btn-sm" role="button">Delete</a>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<!--container-->
+</body>
+</html>

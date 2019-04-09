@@ -1,0 +1,67 @@
+package com.neusoft.entity;
+
+public class User {
+private Integer id;
+private String uname;
+private String pass;
+private String phone;
+private String ctype;
+
+private ROLE role;
+
+public ROLE getRole() {
+	return role;
+}
+public void setRole(ROLE role) {
+	this.role = role;
+}
+public User() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+public User(Integer id, String uname, String pass, String phone, String ctype) {
+	super();
+	this.id = id;
+	this.uname = uname;
+	this.pass = pass;
+	this.phone = phone;
+	this.ctype = ctype;
+}
+public Integer getId() {
+	return id;
+}
+public void setId(Integer id) {
+	this.id = id;
+}
+public String getUname() {
+	return uname;
+}
+public void setUname(String uname) {
+	this.uname = uname;
+}
+public String getPass() {
+	return pass;
+}
+public void setPass(String pass) {
+	this.pass = pass;
+}
+public String getPhone() {
+	return phone;
+}
+public void setPhone(String phone) {
+	this.phone = phone;
+}
+public String getCtype() {
+	return ctype;
+}
+public void setCtype(String ctype) {
+	this.ctype = ctype;
+}
+@Override
+public String toString() {
+	return "User [id=" + id + ", uname=" + uname + ", pass=" + pass
+			+ ", phone=" + phone + ", ctype=" + ctype + "]";
+}
+
+
+}

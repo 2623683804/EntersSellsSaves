@@ -1,0 +1,40 @@
+package com.neusoft.lhs.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.neusoft.entity.PurInput;
+import com.neusoft.lhs.service.PurInputServiceI;
+
+@Controller
+public class PurInputController {
+
+	@Autowired
+	private PurInputServiceI service;// 注入PurInputService
+	
+	@RequestMapping(value = "/purinput", params = "act=query")//查全部表单，或以单号搜索记录
+	public String doQuery(HttpServletRequest req,PurInput puri){
+		String str = "/purchase/purchase_sales_input.jsp";
+		List<PurInput> list = service.queryAll(puri);
+		if (list.size()>0) {
+			System.out.println("doQuery list 有值 ");
+		}else{
+			System.out.println("doQuery list 没有值 ");
+		}
+		req.setAttribute("list", list);
+		return str;
+	}
+	
+	@RequestMapping(value = "/purinput", params = "act=purinputadd")
+	public void doAdd(HttpServletRequest req,PurInput puri){
+		service.add(puri);
+		
+	}
+	
+	
+}

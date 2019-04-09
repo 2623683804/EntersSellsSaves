@@ -1,0 +1,59 @@
+package com.neusoft.lhs.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.neusoft.entity.SellReturn;
+
+@Repository
+public class SellReturnDAO extends SqlSessionDaoSupport implements SellReturnDAOI{
+
+	//注意，需要手动在这里覆盖setSQLSessionFactory()的方法
+			@Override@Autowired
+			public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+				super.setSqlSessionFactory(sqlSessionFactory);
+			};
+	
+	@Override
+	public int add(SellReturn sellre) {
+		return getSqlSession().insert("SellReturn.add", sellre);
+	}
+
+	@Override
+	public List<SellReturn> queryAll(SellReturn sellre) {
+		return getSqlSession().selectList("SellReturn.queryAll", sellre);
+	}
+
+	@Override
+	public int update(SellReturn sellre) {
+		return getSqlSession().update("SellReturn.update", sellre);
+	}
+
+	@Override
+	public int updateC(SellReturn sellre) {
+		return getSqlSession().update("SellReturn.updateC", sellre);
+	}
+	
+	@Override
+	public int updateD(SellReturn sellre) {
+		return getSqlSession().update("SellReturn.updateD", sellre);
+	}
+	@Override
+	public SellReturn queryById(Integer sellreid) {
+		return getSqlSession().selectOne("SellReturn.queryById", sellreid);
+	}
+
+	@Override
+	public int delete(Integer sellreid) {
+		return getSqlSession().delete("SellReturn.delete", sellreid);
+	}
+
+	
+
+}

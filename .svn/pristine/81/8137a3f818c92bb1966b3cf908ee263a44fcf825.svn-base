@@ -1,0 +1,20 @@
+package com.neusoft.zh.dao;
+
+import java.util.List;
+
+import com.neusoft.entity.Report;
+
+public interface ReportDAOI {
+
+ 	public abstract List<Report> query1(Report r);
+
+	public abstract List<Report> query2(Report r);
+	
+	public abstract List<Report> query3BySupno(Report r);
+	
+	public abstract List<Report> query3ByComname(Report r);
+	
+	public abstract List<Report> query3BySalesmanid(Report r);
+
+	public abstract List<Report> query4(Report r);
+}

@@ -1,0 +1,25 @@
+package com.neusoft.zyx.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.neusoft.entity.Salesman;
+@Repository
+public class SalesmanDAO extends SqlSessionDaoSupport implements SalesmanDAOI{
+
+	@Override @Autowired
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		// TODO Auto-generated method stub
+		super.setSqlSessionFactory(sqlSessionFactory);
+	}
+	
+	@Override
+	public List<Salesman> queryAll(Salesman s) {
+		return getSqlSession().selectList("salesman.queryAll", s);
+	}
+	
+}

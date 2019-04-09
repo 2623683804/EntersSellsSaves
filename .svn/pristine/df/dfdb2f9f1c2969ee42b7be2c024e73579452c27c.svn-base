@@ -1,0 +1,40 @@
+package com.neusoft.zh.Controller;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.neusoft.entity.Power;
+import com.neusoft.entity.User;
+import com.neusoft.zh.Service.LoginServiceI;
+
+
+@Controller
+public class LoginController {
+	
+	@Autowired
+	private LoginServiceI service;
+
+	@RequestMapping("/login")
+	public String login(HttpServletRequest req, User u){
+		String str = "/login.jsp";
+		
+		User u2 = service.validateLogin(u.getUname(), u.getPass());
+		if(u2!=null){
+			//u2.getRole().getPowerList();
+			str = "/zhuye.jsp"; 
+			req.getSession().setAttribute("GLOBAL_USER", u2); 
+		    
+			
+		}else{
+			req.setAttribute("msg", "用户名或者密码错误，请重新登录");
+		}
+		
+		return str;
+	}
+
+	
+}

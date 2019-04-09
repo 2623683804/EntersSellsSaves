@@ -1,0 +1,50 @@
+package com.neusoft.zh.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.neusoft.entity.User;
+
+@Repository
+public class UserDAO extends SqlSessionDaoSupport implements UserDAOI {
+
+	//注意：需要手动在这里覆盖 setSQLSessionFactory()的方法，并手动@Autowired
+	@Override @Autowired
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		// TODO Auto-generated method stub
+		super.setSqlSessionFactory(sqlSessionFactory);
+	}
+	
+	
+	@Override
+	public User queryByUname(String uname) {
+		return getSqlSession().selectOne("user.queryByUname", uname);
+	}
+
+
+	@Override
+	public int add(User u) {
+		return getSqlSession().insert("user.zhuce", u);
+	}
+
+	
+
+	@Override
+	public User validateLogin(String uname, String pass) {
+		User u = new User(null, uname, pass,  null,null);
+		return getSqlSession().selectOne("user.validateLogin", u);
+	}
+
+
+	
+	
+	
+}

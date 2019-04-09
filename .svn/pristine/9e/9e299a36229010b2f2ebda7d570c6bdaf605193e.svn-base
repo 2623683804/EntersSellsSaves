@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SellOutput">
+
+	<select id="queryAll" resultType="SellOutput">
+		select * from sell
+		<where>
+			<if test="selloutid!='' and selloutid!=null">
+				and selloutid = #{selloutid}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryById" resultType="SellOutput">
+		select * from sell
+		where selloutid = #{selloutid}
+	</select>
+	
+	
+	<insert id="add" >
+		insert into sell (cusno,cusname,selloutid,salesdate,salesmanid,shaddress,totalamount,comno,amount,unitprice) 
+		values(#{cusno},#{cusname},my_sequence.nextval,#{salesdate},#{salesmanid},#{shaddress},#{totalamount},#{comno},#{amount},#{unitprice})
+		<selectKey keyProperty="selloutid" order="AFTER" resultType="Integer">
+			select
+			my_sequence.currval from dual
+		</selectKey>
+	</insert>
+
+	<update id="update">
+		update sell
+		<set>
+			<if test="cusno!=null and cusno!='' ">
+				cusno=#{cusno},
+			</if>
+			<if test="cusname!=null and cusname!='' ">
+				cusname=#{cusname},
+			</if>
+			<if test="salesdate!=null and salesdate!='' ">
+				salesdate=#{salesdate},
+			</if>
+			<if test="salesmanid!=null and salesmanid!='' ">
+				salesmanid=#{salesmanid},
+			</if>
+			<if test="shaddress!=null and shaddress!='' ">
+				shaddress=#{shaddress},
+			</if>
+			
+			<if test="totalamount!=null and totalamount!='' ">
+				totalamount=#{totalamount},
+			</if>
+			<if test="comno!=null and comno!='' ">
+				comno=#{comno},
+			</if>
+			<if test="amount!=null and amount!='' ">
+				amount=#{amount},
+			</if>
+			<if test="unitprice!=null and unitprice!='' ">
+				unitprice=#{unitprice},
+			</if>
+		</set>
+		where selloutid=#{selloutid}
+	</update>
+
+
+	<delete id="delete">
+		delete from sell where selloutid=#{selloutid}
+	</delete>
+	
+</mapper>

@@ -1,0 +1,53 @@
+package com.neusoft.zh.Service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.neusoft.entity.Report;
+import com.neusoft.zh.dao.ReportDAOI;
+
+@Service
+public class ReportService implements ReportServiceI{
+@Autowired
+	private ReportDAOI dao;
+
+
+@Override
+public List<Report> query1(Report r) {
+	// TODO Auto-generated method stub
+	return dao.query1(r);
+}
+
+
+@Override
+public List<Report> query2(Report r) {
+	// TODO Auto-generated method stub
+	return dao.query2(r);
+}
+
+
+@Override
+public List<Report> query4(Report r) {
+	// TODO Auto-generated method stub
+	return dao.query4(r);
+}
+
+
+@Override
+public List<Report> query3BySupno(Report r) {
+	// TODO Auto-generated method stub
+	return dao.query3BySupno(r);
+}
+@Override
+public List<Report> query3ByComname(Report r) {
+	// TODO Auto-generated method stub
+	return dao.query3ByComname(r);
+}
+@Override
+public List<Report> query3BySalesmanid(Report r) {
+	// TODO Auto-generated method stub
+	return dao.query3BySalesmanid(r);
+}
+}

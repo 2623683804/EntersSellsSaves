@@ -1,0 +1,12 @@
+package com.neusoft.lhs.service;
+
+import java.util.List;
+
+import com.neusoft.entity.PurInput;
+
+public interface PurInputServiceI {
+
+	public abstract int add(PurInput puri);
+
+	public abstract List<PurInput> queryAll(PurInput puri);
+}

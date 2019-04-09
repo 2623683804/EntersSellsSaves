@@ -1,0 +1,79 @@
+package com.neusoft.zyx.controller;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.neusoft.entity.Salesman;
+import com.neusoft.zyx.service.SalesmanServiceI;
+
+@Controller
+public class SalesmanController {
+
+	@Autowired
+	private SalesmanServiceI service;
+	
+	@RequestMapping(value = "/salesman", params = "act=query")
+	public String doQueryAll(HttpServletRequest req,Salesman s){
+		System.out.println("--s="+s);
+		String str = "/salesman/query.jsp"; 
+		List<Salesman> list = service.queryAll(s);
+		req.setAttribute("list", list);
+		return str;
+	}
+	
+	@RequestMapping(value = "/salesman", params = "act=add")
+	public String doAdd(HttpServletRequest req,Salesman s){
+		System.out.println("--doadd");
+		String str = "";
+		int i = service.add(s);
+		if (i>0) {
+			str = "/salesman/querysalesman.jsp";
+		} else {
+			System.out.println("--add error");
+		}
+		return str;
+	}
+	
+	@RequestMapping(value = "/salesman", params = "act=toUpdate")
+	public String doToUpdate(HttpServletRequest req,Salesman s){
+		System.out.println("--doToUpdate");
+		String str = "/salesman/update.jsp";
+		Salesman s2 = service.queryById(s.getSalesno());
+		req.setAttribute("s", s2);
+		return str;
+	}
+	
+	@RequestMapping(value = "/salesman", params = "act=update")
+	public String doUpdate(HttpServletRequest req,Salesman s){
+		System.out.println("--doupdate");
+		System.out.println("--s="+s);
+		String str = "/salesman/update.jsp";
+		int i = service.update(s);
+		if (i>0) {
+			str = "/salesman/querysalesman.jsp";
+		} else {
+			System.out.println("--update error");
+		}
+		return str;
+	}
+	@RequestMapping(value = "/salesman", params = "act=delete")
+	public String doDelete(HttpServletRequest req,Salesman s, String salesnos){
+		System.out.println("--doDelete");
+		//String str = "/salesman/query.jsp";
+		String str = "/salesman.action?act=query";
+		int i = service.delete(salesnos);
+		if (i>0) {
+			System.out.println("delete ok!");
+		} else {
+			System.out.println("--delete error");
+		}
+		System.out.println("eeeee");
+		return str;
+	}
+}

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SellOutput">
+
+	<select id="queryAll" resultType="SellOutput">
+		select * from SELL
+		<where>
+			<if test="selloutid!='' and selloutid!=null">
+				and selloutid = #{selloutid}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryById" resultType="SellOutput">
+		select * from SELL
+		where selloutid = #{selloutid}
+	</select>
+	
+	
+	<insert id="add" >
+		insert into SELL (cusno,cusname,salesdate,salesmanid,shaddress,totalamount,comno,amount,unitprice) 
+		values(#{cusno},#{cusname},#{salesdate},#{salesmanid},#{shaddress},#{totalamount},#{comno},#{amount},#{unitprice})
+	</insert>
+
+	<update id="update">
+		update SELL
+		<set>
+			<if test="cusno!=null and cusno!='' ">
+				cusno=#{cusno},
+			</if>
+			<if test="cusname!=null and cusname!='' ">
+				cusname=#{cusname},
+			</if>
+			<if test="salesdate!=null and salesdate!='' ">
+				salesdate=#{salesdate},
+			</if>
+			<if test="salesmanid!=null and salesmanid!='' ">
+				salesmanid=#{salesmanid},
+			</if>
+			<if test="shaddress!=null and shaddress!='' ">
+				shaddress=#{shaddress},
+			</if>
+			
+			<if test="totalamount!=null and totalamount!='' ">
+				totalamount=#{totalamount},
+			</if>
+			<if test="comno!=null and comno!='' ">
+				comno=#{comno},
+			</if>
+			<if test="amount!=null and amount!='' ">
+				amount=#{amount},
+			</if>
+			<if test="unitprice!=null and unitprice!='' ">
+				unitprice=#{unitprice},
+			</if>
+		</set>
+		where selloutid=#{selloutid}
+	</update>
+
+<!-- 增加时  对商品表的安全库存、当前数量、最后采购日期的修改 -->
+	<update id="updateC">
+		update COMMODITY 
+		<set>
+			<if test="amount!=null and amount!='' ">
+				amount= amount - #{amount} ,
+			</if>
+			<if test="amount!=null and amount!=''">
+				inventory=inventory + #{amount} ,
+			</if>
+			<if test="salesdate!=null and salesdate!='' ">
+				salesdate=#{salesdate},
+			</if>
+		</set>
+		where comno=#{comno}
+	</update>
+	
+	<update id="updateD">
+		update COMMODITY 
+		<set>
+			<if test="salesdate!=null and salesdate!='' ">
+				salesdate=#{salesdate},
+			</if>
+		</set>
+		where comno=#{comno}
+	</update>
+	
+	<!-- 客户的送货地址  添加时修改-->
+	<update id="updateK">
+		update CUSTOMER
+		<set>
+			<if test="shaddress!=null and shaddress!=''">
+				deladdress=#{shaddress}
+			</if>
+		</set>
+		where cusno=#{cusno}
+	</update>
+	<delete id="delete">
+		delete from SELL where selloutid=#{selloutid}
+	</delete>
+	
+</mapper>

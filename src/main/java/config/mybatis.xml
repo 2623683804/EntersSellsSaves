@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+		<package name="com.neusoft.entity" />
+		
+	</typeAliases>
+
+	<!-- 引入映射文件的路径 -->
+	<mappers>
+		
+		<mapper resource="com/neusoft/entity/PurInputMapper.xml" />
+		<mapper resource="com/neusoft/entity/PurReturnMapper.xml"/>
+		<mapper resource="com/neusoft/entity/SellOutputMapper.xml"/>
+		<mapper resource="com/neusoft/entity/SellReturnMapper.xml"/>
+		<mapper resource="com/neusoft/entity/StockMapper.xml"/>
+		
+		
+		
+		<mapper resource="com/neusoft/entity/UserMapper.xml" />
+		
+		
+		<mapper resource="com/neusoft/entity/CommodityMapper.xml" />
+		<mapper resource="com/neusoft/entity/CustomerMapper.xml" />
+		<mapper resource="com/neusoft/entity/SalesmanMapper.xml" />
+		<mapper resource="com/neusoft/entity/SupplierMapper.xml" />
+	</mappers>
+
+</configuration>

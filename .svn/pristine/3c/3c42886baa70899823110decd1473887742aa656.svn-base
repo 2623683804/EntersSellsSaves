@@ -1,0 +1,64 @@
+package com.neusoft.zh.Controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.neusoft.entity.Report;
+import com.neusoft.zh.Service.ReportServiceI;
+
+@Controller
+public class ReportController {
+	
+	@Autowired
+	private ReportServiceI service;
+	
+	@RequestMapping(value="/report",params="act=query1")
+	public String doQuery1(HttpServletRequest req,Report r){
+		String str="/report/query1.jsp";
+		List<Report> list=service.query1(r);
+		req.setAttribute("list", list);
+		return str;
+	}
+	@RequestMapping(value="/report",params="act=query2")
+	public String doQuery2(HttpServletRequest req,Report r){
+		String str="/report/query2.jsp";
+		List<Report> list=service.query2(r);
+		req.setAttribute("list", list);
+		return str;
+	}
+	@RequestMapping(value="/report",params="act=query3BySupno")
+	public String doQuery31(HttpServletRequest req,Report r){
+		String str="/report/query3BySupno.jsp";
+		List<Report> list=service.query3BySupno(r);
+		req.setAttribute("list", list);
+		return str;
+	}
+	@RequestMapping(value="/report",params="act=query3ByComname")
+	public String doQuery32(HttpServletRequest req,Report r){
+		String str="/report/query3ByComname.jsp";
+		List<Report> list=service.query3ByComname(r);
+		req.setAttribute("list", list);
+		return str;
+	}
+	@RequestMapping(value="/report",params="act=query3BySalesmanid")
+	public String doQuery33(HttpServletRequest req,Report r){
+		String str="/report/query3BySalesmanid.jsp";
+		List<Report> list=service.query3BySalesmanid(r);
+		req.setAttribute("list", list);
+		return str;
+	}
+	
+	
+	@RequestMapping(value="/report",params="act=query4")
+	public String doQuery4(HttpServletRequest req,Report r){
+		String str="/report/query4.jsp";
+		List<Report> list=service.query4(r);
+		req.setAttribute("list", list);
+		return str;
+	}
+}

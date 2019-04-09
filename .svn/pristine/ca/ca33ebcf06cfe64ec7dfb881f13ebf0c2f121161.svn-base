@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="purreturn">
+
+	<select id="queryAll" resultType="purreturn">
+		select * from pur_output
+		<where>
+			<if test="puroutid!='' and  puroutid!=null">
+				and puroutid = #{puroutid}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryById" resultType="purreturn">
+		select * from pur_output
+		where puroutid = #{puroutid}
+	</select>
+	
+	
+	<insert id="add" >
+		insert into pur_output (supno,supallname,puroutid,thdate,totalamount,comno,amount,unitprice) 
+		values(#{supno},#{supallname},my_sequence.nextval,#{thdate},#{totalamount},#{comno},#{amount},#{unitprice})
+		<selectKey keyProperty="puroutid" order="AFTER" resultType="Integer">
+			select
+			my_sequence.currval from dual
+		</selectKey>
+	</insert>
+
+	<update id="update">
+		update pur_output
+		<set>
+			<if test="supno!=null and supno!='' ">
+				supno=#{supno},
+			</if>
+			<if test="supallname!=null and supallname!='' ">
+				supallname=#{supallname},
+			</if>
+			<if test="thdate!=null and thdate!='' ">
+				thdate=#{thdate},
+			</if>
+			<if test="totalamount!=null and totalamount!='' ">
+				totalamount=#{totalamount},
+			</if>
+			<if test="comno!=null and comno!='' ">
+				comno=#{comno},
+			</if>
+			<if test="amount!=null and amount!='' ">
+				amount=#{amount},
+			</if>
+			<if test="unitprice!=null and unitprice!='' ">
+				unitprice=#{unitprice},
+			</if>
+		</set>
+		where puroutid=#{puroutid}
+	</update>
+
+<!-- 增加时  对商品表的安全库存、当前数量、最后采购日期的修改 -->
+	<update id="updateC">
+		update COMMODITY 
+		<set>
+			<if test="amount!=null and amount!='' ">
+				amount= amount - #{amount} ,
+			</if>
+			<if test="amount!=null and amount!=''">
+				inventory=inventory + #{amount} ,
+			</if>
+		</set>
+		where comno=#{comno}
+	</update>
+
+	<delete id="delete">
+		delete from pur_output where puroutid=#{puroutid}
+	</delete>
+	
+</mapper>

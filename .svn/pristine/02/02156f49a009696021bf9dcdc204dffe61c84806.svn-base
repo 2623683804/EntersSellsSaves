@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="supplier">
+
+	<select id="queryAll" parameterType="supplier" resultType="Supplier">
+		select * from supplier
+		<where>
+			<if test="supno!=null and supno!=''">
+				and supno = #{supno}
+			</if>
+		</where>
+		order by supno
+	</select>
+
+	<insert id="add" parameterType="supplier">
+		insert into supplier
+		(supno,supname,supallname,head,headname,tel,fax,mobtel,address,facaddress,importdate)
+		values
+		(my_sequence.nextval,#{supname},#{supallname},#{head},#{headname},#{tel},#{fax},#{mobtel},#{address},#{facaddress},#{importdate})
+	</insert>
+
+	<select id="queryById" resultType="supplier">
+		select * from supplier where supno = #{supno}
+	</select>
+
+	<update id="update">
+		update supplier
+		<set>
+			<if test="supname!=null and supname!=''">
+				supname=#{supname},
+			</if>
+			<if test="supallname!=null and supallname!=''">
+				supallname=#{supallname},
+			</if>
+			<if test="head!=null and head!=''">
+				head=#{head},
+			</if>
+			<if test="headname!=null and headname!=''">
+				headname=#{headname},
+			</if>
+			<if test="tel!=null and tel!=''">
+				tel=#{tel},
+			</if>
+			<if test="fax!=null and fax!=''">
+				fax=#{fax},
+			</if>
+			<if test="mobtel!=null and mobtel!=''">
+				mobtel=#{mobtel},
+			</if>
+			<if test="address!=null and address!=''">
+				address=#{address},
+			</if>
+			<if test="facaddress!=null and facaddress!=''">
+				facaddress=#{facaddress},
+			</if>
+			<if test="importdate!=null and importdate!=''">
+				importdate=#{importdate},
+			</if>
+		</set>
+		where supno=#{supno}
+	</update>
+
+	<delete id="delete">
+		delete from supplier where supno in (${supnos})
+	</delete>
+</mapper>

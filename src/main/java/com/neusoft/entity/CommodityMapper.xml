@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="commodity">
+
+	<select id="queryAll" parameterType="commodity" resultType="Commodity">
+		select * from COMMODITY
+		<where>
+			<if test="comno!=null and comno!=''">
+				and comno = #{comno}
+			</if>
+		</where>
+		order by comno
+	</select>
+
+	<insert id="add" parameterType="commodity">
+		insert into COMMODITY
+		(comname,inventory,amount,cgprice,salesprice,cgdate,salesdate)
+		values
+		(#{comname},#{inventory},#{amount},#{cgprice},#{salesprice},#{cgdate},#{salesdate})
+	</insert>
+
+	<select id="queryById" resultType="Commodity">
+		select * from COMMODITY where comno = #{comno}
+	</select>
+
+	<update id="update">
+		update COMMODITY
+		<set>
+			<if test="comname!=null and comname!=''">
+				comname=#{comname},
+			</if>
+			<if test="inventory!=null and inventory!=''">
+				inventory=#{inventory},
+			</if>
+			<if test="amount!=null and amount!=''">
+				amount=#{amount},
+			</if>
+			<if test="cgprice!=null and cgprice!=''">
+				cgprice=#{cgprice},
+			</if>
+			<if test="salesprice!=null and salesprice!=''">
+				salesprice=#{salesprice},
+			</if>
+			<if test="cgdate!=null and cgdate!=''">
+				cgdate=#{cgdate},
+			</if>
+			<if test="salesdate!=null and salesdate!=''">
+				salesdate=#{salesdate},
+			</if>
+		</set>
+		where comno=#{comno}
+	</update>
+
+	<delete id="delete">
+		delete from COMMODITY where comno in (${comnos})
+	</delete>
+</mapper>

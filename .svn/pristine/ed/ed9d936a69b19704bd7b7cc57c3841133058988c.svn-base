@@ -1,0 +1,37 @@
+$(function(){
+	//录入
+	$("#add").click(function(){
+		$("#div_entering").css("display","block");
+	});
+	
+	$("#submit").click(function(){
+		//
+		alert("录入成功");
+		$("#div_entering").css("display","none");
+	});
+	
+	$("#cancel").click(function(){
+		$("#div_entering").css("display","none");
+	});
+	
+	//修改
+	$("#set").click(function(){
+		$("#div_set").css("display","block");
+	});
+	
+	$("#submit_01").click(function(){
+		//
+		alert("修改成功");
+		$("#div_set").css("display","none");
+	});
+	
+	$("#cancel_01").click(function(){
+		$("#div_set").css("display","none");
+	});
+	
+	//删除
+	$("#del").click(function(){
+		$(this).parent().parent().remove();
+	});
+	
+});

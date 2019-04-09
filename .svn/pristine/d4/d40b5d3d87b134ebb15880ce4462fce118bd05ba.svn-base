@@ -1,0 +1,58 @@
+package com.neusoft.lhs.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.neusoft.entity.Stock;
+import com.neusoft.lhs.service.StockServiceI;
+
+@Controller
+public class StockController {
+
+	@Autowired
+	private StockServiceI service;
+	
+	@RequestMapping(value = "/stock", params = "act=queryById")
+	public String queryById(HttpServletRequest req,Stock sto){
+		String str = "/stock_inquiry/stock_inquiry.jsp";
+		service.delete();
+		service.add();
+		List<Stock> list = service.queryById(sto);
+		req.setAttribute("list", list);
+		return str;
+	}
+	@RequestMapping(value = "/stock", params = "act=queryByName")
+	public String queryByName(HttpServletRequest req,Stock sto){
+		String str = "/stock_inquiry/stock_inquiry.jsp";
+		service.delete();
+		service.add();
+		List<Stock> list = service.queryByName(sto);
+		req.setAttribute("list", list);
+		return str;
+	}
+	@RequestMapping(value = "/stock", params = "act=queryCGDate")
+	public String queryCGDate(HttpServletRequest req,Stock sto){
+		String str = "/stock_inquiry/stock_inquiry.jsp";
+		service.delete();
+		service.add();
+		List<Stock> list = service.queryCGDate(sto);
+		req.setAttribute("list", list);
+		return str;
+	}
+	@RequestMapping(value = "/stock", params = "act=querySalesDate")
+	public String querySalesDate(HttpServletRequest req,Stock sto){
+		String str = "/stock_inquiry/stock_inquiry.jsp";
+		service.delete();
+		service.add();
+		List<Stock> list = service.querySalesDate(sto);
+		req.setAttribute("list", list);
+		return str;
+	}
+	
+	
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="stock">
+	
+	<select id="queryAll"  resultType="customer">
+		select * from CUSTOMER
+		<where>
+			<if test="cusno!=null and cusno!=''">
+				cusno = #{cusno}
+			</if>
+			<if test="comname!=null and comname!=''">
+				comname=#{comname},
+			</if>
+			<if test="cgdate!=null and cgdate!=''">
+				cgdate=#{cgdate},
+			</if>
+			<if test="salesdate!=null and salesdate!=''">
+				salesdate=#{salesdate},
+			</if>
+		</where>
+		order by cusno
+	</select>
+	
+	
+	
+	
+</mapper>

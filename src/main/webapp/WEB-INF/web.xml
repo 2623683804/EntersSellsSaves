@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	
+  <display-name>Archetype Created Web Application</display-name>
+  
+<!-- 配置使用SpringMVC框架 -->
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:config/spring_mvc.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<!--  -->
+		<url-pattern>*.action</url-pattern>
+		<!-- 如果是RESTful的使用，则值配置为“/” 
+		<url-pattern>/</url-pattern>-->
+	</servlet-mapping>  
+<!-- 1、引入spring框架 begin -->	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<!--<param-value>/WEB-INF/classes/config/spring_beans.xml</param-value>-->
+		<param-value>classpath:config/spring.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+<!-- 1、引入spring框架 end -->		
+</web-app>

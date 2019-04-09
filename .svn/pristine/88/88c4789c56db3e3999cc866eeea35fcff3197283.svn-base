@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="stock">
+
+	<delete id="deletestock">
+		delete from stock;
+	</delete>
+	<insert id="addstock">
+		insert into stock
+	    (kcid,amount,comname,inventory,cgdate,salesdate,cgprice,salesprice)
+	    select comno ,amount,comname,inventory,cgdate,salesdate,cgprice,salesprice from COMMODITY
+	</insert>
+	
+	<select id="queryByName" resultType="Stock">
+		select * from stock
+		<where>
+			<if test="comname!='' and comname!=null">
+				and comname = #{comname}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryById" resultType="Stock">
+		select * from stock
+		<where>
+			<if test="kcid!='' and kcid!=null">
+				and kcid = #{kcid}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryCGDate" resultType="Stock">
+		select * from stock
+		<where>
+			<if test="cgdate!='' and cgdate!=null">
+				and cgdate = #{cgdate}
+			</if>
+		</where>
+	</select>
+	
+	<select id="querySalesDate" resultType="Stock">
+		select * from stock
+		<where>
+			<if test="salesdate!='' and salesdate!=null">
+				and salesdate = #{salesdate}
+			</if>
+		</where>
+	</select>
+	
+	
+	
+</mapper>

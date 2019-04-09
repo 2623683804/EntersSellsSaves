@@ -1,0 +1,15 @@
+package com.neusoft.lhs.service;
+
+import java.util.List;
+
+import com.neusoft.entity.Stock;
+
+public interface StockServiceI {
+
+	public abstract List<Stock> queryById(Stock sto);
+	public abstract List<Stock> queryByName(Stock sto);
+	public abstract List<Stock> queryCGDate(Stock sto);
+	public abstract List<Stock> querySalesDate(Stock sto);
+	public abstract int delete();
+	public abstract int add();
+}

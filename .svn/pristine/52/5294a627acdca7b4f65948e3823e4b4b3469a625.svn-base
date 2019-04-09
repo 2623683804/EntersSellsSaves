@@ -1,0 +1,74 @@
+drop sequence my_sequence;
+CREATE SEQUENCE my_sequence
+START WITH 1
+INCREMENT BY 1
+MAXVALUE 9999;
+
+
+prompt PL/SQL Developer import file
+prompt Created on 2018年5月10日 by new
+set feedback off
+set define off
+prompt Dropping T_USER...
+drop table T_USER cascade constraints;
+prompt Creating T_USER...
+create table T_USER
+(
+  id        NUMBER(4) not null,
+  uname     VARCHAR2(20),
+  pass      VARCHAR2(20),
+  realname  VARCHAR2(20),
+  birthdate DATE
+)
+tablespace USERS
+  pctfree 10
+  initrans 1
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table T_USER
+  add constraint PK_T_USER_ID primary key (ID)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+alter table T_USER
+  add constraint UK_T_USER_UNAME unique (UNAME)
+  using index 
+  tablespace USERS
+  pctfree 10
+  initrans 2
+  maxtrans 255
+  storage
+  (
+    initial 64K
+    next 1M
+    minextents 1
+    maxextents unlimited
+  );
+
+prompt Disabling triggers for T_USER...
+alter table T_USER disable all triggers;
+prompt Loading T_USER...
+insert into T_USER (id, uname, pass, realname, birthdate)
+values (1001, 'tom', '123', '张三', to_date('10-05-2018 14:47:47', 'dd-mm-yyyy hh24:mi:ss'));
+commit;
+prompt 1 records loaded
+prompt Enabling triggers for T_USER...
+alter table T_USER enable all triggers;
+set feedback on
+set define on
+prompt Done.

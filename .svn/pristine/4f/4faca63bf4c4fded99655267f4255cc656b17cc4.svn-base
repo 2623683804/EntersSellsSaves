@@ -1,0 +1,21 @@
+package com.neusoft.lhs.dao;
+
+import java.util.List;
+
+import com.neusoft.entity.PurInput;
+import com.neusoft.entity.User;
+
+public interface PurInputDAOI {
+
+	// 3.增加记录
+	public abstract int add(PurInput puri);
+
+	public abstract List<PurInput> queryAll(PurInput puri);
+	public abstract int delete(Integer purinid);
+
+	public abstract int update(PurInput puri);
+
+	public abstract PurInput queryById(Integer purinid);
+
+	public abstract int updateC(PurInput puri);
+}

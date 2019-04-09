@@ -1,0 +1,104 @@
+package com.neusoft.zh.Controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.neusoft.entity.User;
+import com.neusoft.zh.Service.UserServiceI;
+
+
+@Controller
+public class UserController {
+
+	@Autowired
+	private UserServiceI service;
+
+	@RequestMapping(value = "/user", params = "act=add")
+	public String doAdd(HttpServletRequest req, User u) {
+		System.out.println("---in add()");
+		String str = "/user/add.jsp";
+
+		int i = service.add(u);
+		if (i > 0) {
+			req.setAttribute("msg", "add ok");
+			str = "/user/query.jsp";
+		} else {
+			req.setAttribute("msg", "add error");
+			req.setAttribute("u", u);
+		}
+
+		return str;
+	}
+
+	@RequestMapping(value = "/user", params = "act=query")
+	public String doQuery(HttpServletRequest req, User u) {
+		String str = "/user/query.jsp";
+
+		List<User> list = service.queryAll(u);
+		req.setAttribute("list", list);
+
+		return str;
+	}
+
+	@RequestMapping(value = "/user", params = "act=toUpdate")
+	public String doToUpdate(HttpServletRequest req, User u) {
+		String str = "/user/update.jsp";
+
+		User u2 = service.queryById(u.getId());
+		req.setAttribute("u", u2);
+
+		return str;
+	}
+
+	@RequestMapping(value = "/user", params = "act=update")
+	public String doUpdate(HttpServletRequest req, User u) {
+		String str = "/user/update.jsp";
+
+		int i = service.update(u);
+		if (i > 0) {
+			req.setAttribute("msg", "update ok");
+			str = "/user/query.jsp";
+		} else {
+			req.setAttribute("msg", "update error");
+			req.setAttribute("u", u);
+		}
+		return str;
+	}
+
+	@RequestMapping(value = "/user", params = "act=delete")
+	public String doDelete(HttpServletRequest req, User u) {
+		String str = "/user/query.jsp";
+
+		int i = service.delete(u.getId());
+		if (i > 0) {
+			req.setAttribute("msg", "delete ok");
+		} else {
+			req.setAttribute("msg", "delete error");
+		}
+		return str;
+	}
+
+	@RequestMapping(value = "/user", params = "act=queryByUname")
+	public void doCheck(User u, HttpServletResponse resp) throws IOException {
+		// 2������service�ķ���
+		User u2 = service.queryByUname(u.getUname());
+
+		// 3����ǰ̨�������?
+		PrintWriter out = resp.getWriter();
+		if (u2 != null) { // ��ݿ��д���ͬ��ļ�¼
+			out.print("true");
+		} else {
+			out.print("false");
+		}
+		out.close();
+	}
+
+}

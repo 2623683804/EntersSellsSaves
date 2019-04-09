@@ -1,0 +1,51 @@
+package com.neusoft.lhs.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.neusoft.entity.Stock;
+
+@Repository
+public class StockDAO extends SqlSessionDaoSupport implements StockDAOI{
+
+	//注意，需要手动在这里覆盖setSQLSessionFactory()的方法
+	@Override@Autowired
+	public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+		super.setSqlSessionFactory(sqlSessionFactory);
+	};
+
+	@Override
+	public int add() {
+		return getSqlSession().update("stock.addstock");
+	}
+	
+	@Override
+	public int delete() {
+		return getSqlSession().delete("stock.deletestock");
+	}
+	
+	@Override
+	public List<Stock> queryById(Stock sto) {
+		return getSqlSession().selectList("stock.queryById", sto);
+	}
+
+	@Override
+	public List<Stock> queryByName(Stock sto) {
+		return getSqlSession().selectList("stock.queryByName", sto);
+	}
+
+	@Override
+	public List<Stock> queryCGDate(Stock sto) {
+		return getSqlSession().selectList("stock.queryCGDate", sto);
+	}
+
+	@Override
+	public List<Stock> querySalesDate(Stock sto) {
+		return getSqlSession().selectList("stock.querySalesDate", sto);
+	}
+
+}

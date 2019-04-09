@@ -1,0 +1,19 @@
+package com.neusoft.zh.dao;
+
+import java.util.List;
+
+import com.neusoft.entity.User;
+
+public interface UserDAOI {
+	//看用户名是否重复
+	public abstract User queryByUname(String uname);
+	
+	//增加记录
+	public abstract int add(User u);
+
+
+	//验证登录：如果成功，则返回该User对象；否则返回 null；
+	public abstract User validateLogin(String uname, String pass);
+
+	
+}

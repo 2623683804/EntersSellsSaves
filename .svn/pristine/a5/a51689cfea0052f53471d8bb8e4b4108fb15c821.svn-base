@@ -1,0 +1,45 @@
+package com.neusoft.zh.Service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.neusoft.zh.dao.UserDAO;
+import com.neusoft.zh.dao.UserDAOI;
+import com.neusoft.entity.User;
+
+@Service
+public class UserService implements UserServiceI {
+	
+	@Autowired
+	private UserDAOI dao;
+	
+	@Override
+	public User queryByUname(String uname){
+		return dao.queryByUname(uname);
+	}
+	
+	@Override
+	public User queryById(Integer id){
+		return dao.queryById(id);
+	}
+	
+	@Override
+	public List<User> queryAll(User u){
+		return dao.queryAll(u);
+	}
+	
+	@Override
+	public int add(User u){
+		return dao.add(u);
+	}
+	@Override
+	public int update(User u){
+		return dao.update(u);
+	}
+	@Override
+	public int delete(Integer id){
+		return dao.delete(id);
+	}
+}

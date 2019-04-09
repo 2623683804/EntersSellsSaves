@@ -1,0 +1,228 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>进销存系统--销售出库</title>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/bootstrap.css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/pur-sa.css" />
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/js/purchase-sales-input.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#"> <img alt="Brand"
+				src="<%=request.getContextPath()%>/img/4305161-201802281415253083.jpg"
+				width="30px">
+			</a>
+		</div>
+		<ul class="nav navbar-nav" id="nav">
+			<li class="active"><a href="#">Home</a></li>
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown" role="button"> 维护基本资料 <span class="caret"></span>
+			</a>
+				<ul class="dropdown-menu">
+					<div class="list-group">
+						<a href="<%=request.getContextPath()%>/rsxz/基本资料维护.jsp"
+							class="list-group-item">基本资料维护</a> <a
+							href="<%=request.getContextPath()%>/rsxz/商品资料维护.jsp"
+							class="list-group-item">商品资料维护</a> <a
+							href="<%=request.getContextPath()%>/rsxz/客户资料维护.jsp"
+							class="list-group-item">客户资料维护</a> <a
+							href="<%=request.getContextPath()%>/rsxz/供应商资料维护.jsp"
+							class="list-group-item">供应商资料维护</a>
+					</div>
+				</ul></li>
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown" role="button"> 采购 <span class="caret"></span>
+			</a>
+				<ul class="dropdown-menu">
+					<div class="list-group" id="lg">
+						<a
+							href="<%=request.getContextPath()%>/purchase/purchase_sales_input.jsp"
+							class="list-group-item">采购入库</a> <a
+							href="<%=request.getContextPath()%>/purchase/purchase_sales_return.jsp"
+							class="list-group-item">采购退货</a>
+					</div>
+				</ul></li>
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown" role="button"> 销售 <span class="caret"></span>
+			</a>
+				<ul class="dropdown-menu">
+					<div class="list-group" id="lg">
+						<a
+							href="<%=request.getContextPath()%>/sell/sell_sales_output.jsp"
+							class="list-group-item">销售出库</a> <a
+							href="<%=request.getContextPath()%>/sell/sell_sales_return.jsp"
+							class="list-group-item">销售退货</a>
+					</div>
+				</ul></li>
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown" role="button"> 库存 <span class="caret"></span>
+			</a>
+				<ul class="dropdown-menu">
+					<div class="list-group" id="lg">
+						<a
+							href="<%=request.getContextPath()%>/stock_inquiry/stock_inquiry.jsp"
+							class="list-group-item">库存查询</a>
+					</div>
+				</ul></li>
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown" role="button"> 维护系统 <span class="caret"></span>
+			</a>
+				<ul class="dropdown-menu">
+					<div class="list-group" id="lg">
+						<a href="<%=request.getContextPath()%>/client/whyhzl.jsp"
+							class="list-group-item">维护用户资料</a> <a
+							href="<%=request.getContextPath()%>/client/yhqx.jsp"
+							class="list-group-item">管理用户权限</a> <a
+							href="<%=request.getContextPath()%>/client/xgmm.jsp"
+							class="list-group-item">修改密码</a>
+					</div>
+				</ul></li>
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown" role="button"> 报表导出 <span class="caret"></span>
+			</a>
+				<ul class="dropdown-menu">
+					<div class="list-group" id="lg">
+						<a href="<%=request.getContextPath()%>/item/kcyj.jsp"
+							class="list-group-item">导出库存预警</a> <a
+							href="<%=request.getContextPath()%>/item/SPZL.jsp"
+							class="list-group-item">导出商品资料</a> <a
+							href="<%=request.getContextPath()%>/item/cgbb.jsp"
+							class="list-group-item">导出采购报表</a> <a
+							href="<%=request.getContextPath()%>/item/ncgbb.jsp"
+							class="list-group-item">导出年采购报表</a>
+					</div>
+				</ul></li>
+		</ul>
+		<form class="navbar-form navbar-left">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="search" />
+			</div>
+			<button type="submit" class="btn btn-success">Search</button>
+		</form>
+		<a href="../login.html" class="btn btn-info navbar-right navbar-btn">登录</a>
+	</div>
+	</nav>
+	<div class="container" id="containe">
+		<div>
+			<form class="form-inline" name="search" class="search"  method="post"
+				action="<%=request.getContextPath()%>/sell.action?act=query">
+			<div class="form-group">
+				<label><span class="glyphicon glyphicon-apple"></span>销售出库</label>
+			</div>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<button class="btn btn-primary" type="button" id="add">增加</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="submit"  value="查询销售出库单" class="btn btn-primary"/>
+			
+			<div class="form-group" id="div_1">
+				<input type="text" class="form-control" name="selloutid" placeholder="请输入单号">
+				<input type="submit" class="btn  btn-info" value="搜索"  /></div>
+			</form>
+		</div>
+		<!--增加-->
+			<div id="div_entering">
+				<form action="<%=request.getContextPath()%>/sell.action?act=selladd"
+				method="post">
+					<div class="form-group">
+						<label>客户编号：</label>
+						<input type="text" class="form-control" name="cusno"/>
+					</div>
+					<div class="form-group">
+						<label>客户名称:</label>
+						<input type="text" placeholder="请输入客户名称" class="form-control" name="cusname" />
+					</div>
+					<div class="form-group">
+						<label>销售日期:</label>
+						<input type="text"  class="form-control" name="salesdate" />
+					</div>
+
+					<div class="form-group">
+						<label>业务员编号：</label>
+						<input type="text"  class="form-control" name="salesmanid" />
+					</div>
+					<div class="form-group">
+						<label>送货地址:</label>
+						<input type="text" title="请输入送货地址" class="form-control" name="shaddress" />
+					</div>
+					<div class="form-group">
+						<label>总金额:</label>
+						<input type="text" placeholder="请输入总金额" class="form-control" name="totalamount" />
+					</div>
+					<div class="form-group">
+						<label>商品编号:</label>
+						<input type="text" placeholder="输入不能超过8位字符" class="form-control" name="comno" />
+					</div>
+					<div class="form-group">
+						<label>商品数量:<label>
+						<input type="text"  value="1" class="form-control" name="amount" />
+					</div>
+					<div class="form-group">
+						<label>单价:<label>
+						<input type="text" placeholder="请输入单价" class="form-control" name="unitprice"/>
+					</div>
+					<input type="submit" id="submit" value="录入销售出库单" class="btn btn-success"/>
+					<input type="button" value="取消录入" id="cancel" class="btn btn-default"/>
+				</form>
+			</div>
+		<br/>
+			<div class="row">
+				<table class="table table-striped table-bordered table-hover table-condensed" id="table1">
+					<tbody>
+					<tr class="info">
+						<th width="8%">客户编号</th>
+						<th width="8%">客户名称</th>
+						<th width="6%">单号</th>
+						<th width="8%">销售日期</th>
+						<th width="8%">业务员编号</th>
+						<th width="13%">送货地址</th>
+						<th width="8%">总金额</th>
+						<th width="8%">商品编号</th>
+						<th width="5%">商品数量</th>
+						<th width="8%">单价</th>
+						<th width="15%">操作</th>
+					</tr>
+					<c:if test="${list != null && list.size()>0 }">
+						<c:forEach items="${list }" var="sell">
+							<tr>
+								<td>${sell.cusno }</td>
+								<td>${sell.cusname }</td>
+								<td>${sell.selloutid }</td>
+								<td><fmt:formatDate value="${sell.salesdate }"
+										pattern="yyyy-MM-dd" /></td>
+								<td>${sell.salesmanid }</td>
+								<td>${sell.shaddress }</td>
+								<td>${sell.totalamount }</td>
+								<td>${sell.comno }</td>
+								<td>${sell.amount }</td>
+								<td>${sell.unitprice }</td>
+								<td><a class=" set btn btn-warning btn-sm" type="button"role=button  
+									href="${pageContext.request.contextPath }/sell.action?act=update&selloutid=${sell.selloutid}">
+									修改</a>
+									<a class="btn btn-danger btn-sm" type="button" role=button 
+									href="${pageContext.request.contextPath }/sell.action?act=delete&selloutid=${sell.selloutid}"
+									onclick="return confirm('您确定要删除吗？')">删除</a>
+									
+								</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+				</tbody>
+			</table>
+					
+			
+</body>
+</html>

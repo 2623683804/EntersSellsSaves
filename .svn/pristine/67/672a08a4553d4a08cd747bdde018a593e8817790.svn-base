@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="salesman">
+
+	<select id="queryAll" parameterType="salesman" resultType="Salesman">
+		select * from salesman
+		<where>
+			<if test="salesno!=null and salesno!=''">
+				and salesno = #{salesno}
+			</if>
+		</where>
+		order by salesno
+	</select>
+
+	<insert id="add" parameterType="salesman">
+		insert into salesman
+		(salesno,chiname,engname,tel,mobtel,address)
+		values
+		(my_sequence.nextval,#{chiname},#{engname},#{tel},#{mobtel},#{address})
+	</insert>
+
+	<select id="queryById" resultType="Salesman">
+		select * from salesman where salesno = #{salesno}
+	</select>
+
+	<update id="update">
+		update salesman
+		<set>
+			<if test="chiname!=null and chiname!=''">
+				chiname=#{chiname},
+			</if>
+			<if test="engname!=null and engname!=''">
+				engname=#{engname},
+			</if>
+			<if test="tel!=null and tel!=''">
+				tel=#{tel},
+			</if>
+			<if test="mobtel!=null and mobtel!=''">
+				mobtel=#{mobtel},
+			</if>
+			<if test="address!=null and address!=''">
+				address=#{address},
+			</if>
+		</set>
+		where salesno=#{salesno}
+	</update>
+
+	<delete id="delete">
+		delete from salesman where salesno in (${salesnos})
+	</delete>
+</mapper>

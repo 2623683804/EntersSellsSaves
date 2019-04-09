@@ -1,0 +1,28 @@
+package com.neusoft.zyx.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.neusoft.entity.Salesman;
+import com.neusoft.zyx.service.SalesmanServiceI;
+
+@Controller
+public class SalesmanController {
+
+	@Autowired
+	private SalesmanServiceI service;
+	
+	@RequestMapping(value = "/salesman", params = "act=query")
+	public String doQueryAll(HttpServletRequest req,Salesman s){
+		System.out.println("--s="+s);
+		String str = "/salesman/query.jsp";
+		List<Salesman> list = service.queryAll(s);
+		req.setAttribute("list", list);
+		return str;
+	}
+}

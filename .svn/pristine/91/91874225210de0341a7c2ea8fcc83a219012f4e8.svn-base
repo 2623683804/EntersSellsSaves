@@ -1,0 +1,29 @@
+package com.neusoft.zh.dao;
+
+import java.util.List;
+
+import com.neusoft.entity.User;
+
+public interface UserDAOI {
+
+	public abstract User queryByUname(String uname);
+
+	//1、根据id查询一条记录
+	public abstract User queryById(Integer id);
+
+	//2、根据条件查询所有记录
+	public abstract List<User> queryAll(User u);
+
+	//3、增加记录
+	public abstract int add(User u);
+
+	//4、修改记录
+	public abstract int update(User u);
+
+	//5、删除记录
+	public abstract int delete(Integer id);
+
+	//验证登录：如果成功，则返回该User对象；否则返回 null；
+	public abstract User validateLogin(String uname, String pass);
+
+}

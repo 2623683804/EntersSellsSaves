@@ -1,0 +1,169 @@
+-- 采购入库
+create table PUR_INPUT
+(
+  supno       NUMBER not null,
+  purinid     NUMBER not null,
+  supallname  VARCHAR2(10),
+  cgdate      DATE,
+  totalamount NUMBER,
+  comno       NUMBER,
+  amount      NUMBER,
+  unitprice   NUMBER
+);
+
+insert into PUR_INPUT (supno, purinid, supallname, cgdate, totalamount, comno, amount, unitprice)
+values (1, 1, '惠普', to_date('07-06-2018', 'dd-mm-yyyy'), 100000, 1, 532, 25);
+insert into PUR_INPUT (supno, purinid, supallname, cgdate, totalamount, comno, amount, unitprice)
+values (1, 2, '惠普', to_date('09-05-2015', 'dd-mm-yyyy'), 561444, 1, 155, 325);
+commit;
+
+
+--采购出库表
+create table PUR_OUTPUT
+(
+  supno       NUMBER not null,
+  puroutid    NUMBER not null,
+  supallname  VARCHAR2(10),
+  thdate      DATE,
+  totalamount NUMBER,
+  comno       NUMBER,
+  amount      NUMBER,
+  unitprice   NUMBER
+);
+
+insert into PUR_OUTPUT (SUPNO, PUROUTID, SUPALLNAME, THDATE, TOTALAMOUNT, COMNO, AMOUNT, UNITPRICE)
+values (2, 1, '华信 ', to_date('04-06-2018', 'dd-mm-yyyy'), 56200, 2, 124, 55);
+insert into PUR_OUTPUT (SUPNO, PUROUTID, SUPALLNAME, THDATE, TOTALAMOUNT, COMNO, AMOUNT, UNITPRICE)
+values (2, 2, '华信 ', to_date('04-05-2016', 'dd-mm-yyyy'), 5600, 2, 1534, 100);
+
+--销售出库表
+create table SELL
+(
+  cusno       NUMBER,
+  cusname     VARCHAR2(10),
+  selloutid   NUMBER not null,
+  salesdate   DATE,
+  salesmanid  NUMBER,
+  shaddress   VARCHAR2(30),
+  totalamount NUMBER,
+  comno       NUMBER,
+  amount      NUMBER,
+  unitprice   NUMBER
+);
+
+insert into SELL (CUSNO, CUSNAME, SELLOUTID, SALESDATE, SALESMANID, SHADDRESS, TOTALAMOUNT, COMNO, AMOUNT, UNITPRICE)
+values (1, '大连科技公司', 1, to_date('02-06-2018', 'dd-mm-yyyy'), 1001, '大连谷歌里', 56448, 3, 526, 666);
+insert into SELL (CUSNO, CUSNAME, SELLOUTID, SALESDATE, SALESMANID, SHADDRESS, TOTALAMOUNT, COMNO, AMOUNT, UNITPRICE)
+values (2, '沈阳科技公司', 2, to_date('02-06-2018', 'dd-mm-yyyy'), 1001, '大连谷歌里', 56448, 4, 526, 666);
+
+
+--销售退货表
+create table SELLRE
+(
+  cusno       NUMBER,
+  cusname     VARCHAR2(10),
+  sellreid    NUMBER not null,
+  xthdate     DATE,
+  totalamount NUMBER,
+  comno       NUMBER,
+  amount      NUMBER,
+  unitprice   NUMBER
+);
+
+insert into SELLRE (CUSNO, CUSNAME, SELLREID, XTHDATE, TOTALAMOUNT, COMNO, AMOUNT, UNITPRICE)
+values (1, '大连科技公司', 1, to_date('08-05-2018', 'dd-mm-yyyy'), 654874, 5, 3, 23);
+insert into SELLRE (CUSNO, CUSNAME, SELLREID, XTHDATE, TOTALAMOUNT, COMNO, AMOUNT, UNITPRICE)
+values (1, '大连科技公司', 2, to_date('06-03-2015', 'dd-mm-yyyy'), 654874, 5, 3, 23);
+
+--库存查询表
+create table STOCK
+(
+  kcid       NUMBER not null,
+  amount     NUMBER,
+  comname    VARCHAR2(10),
+  inventory  NUMBER,
+  cgdate     DATE,
+  salesdate  DATE,
+  cgprice    NUMBER,
+  salesprice NUMBER
+);
+
+
+--插入客户表两条信息
+create table CUSTOMER
+(
+  id    NUMBER not null,
+  uname VARCHAR2(20),
+  pass  VARCHAR2(20),
+  phone VARCHAR2(20),
+  ctype VARCHAR2(20)
+  cusno      NUMBER not null,
+  cusname    VARCHAR2(10),
+  cusallname VARCHAR2(10),
+  head       VARCHAR2(10),
+  headname   VARCHAR2(10),
+  tel        VARCHAR2(20),
+  fax        VARCHAR2(20),
+  mobtel     VARCHAR2(20),
+  salesman   VARCHAR2(10),
+  cusaddress VARCHAR2(10),
+  deladdress VARCHAR2(10)
+);
+insert into CUSTOMER (cusno, cusname, cusallname, head, headname, tel, fax, mobtel, salesman, cusaddress, deladdress)
+values (1, '大连科技公司', '大连有限科技公司', '经理', '王大伟', '15844782521', '13655555555', '17758554444', 'tom', '高新园区', '大连谷歌里');
+insert into CUSTOMER (cusno, cusname, cusallname, head, headname, tel, fax, mobtel, salesman, cusaddress, deladdress)
+values (2, '大连华信公司', '大连华信有限公司', '经理', '陈大伟', '15844782521', '13655555555', '17758554444', 'Lily', '七贤岭', '大连谷歌里');
+
+--插入商品两条信息
+create table COMMODITY
+(
+  comno      NUMBER not null,
+  comname    VARCHAR2(10),
+  inventory  NUMBER,
+  amount     NUMBER,
+  cgprice    NUMBER,
+  salesprice NUMBER,
+  cgdate     DATE,
+  salesdate  DATE
+);
+insert into COMMODITY (COMNO, COMNAME, INVENTORY, AMOUNT, CGPRICE, SALESPRICE, CGDATE, SALESDATE)
+values (1, '主机', 4300, 5141, 2000, 2500, to_date('03-06-2015', 'dd-mm-yyyy'), to_date('22-03-2015', 'dd-mm-yyyy'));
+
+insert into COMMODITY (COMNO, COMNAME, INVENTORY, AMOUNT, CGPRICE, SALESPRICE, CGDATE, SALESDATE)
+values (2, '键盘', 10000, 7000, 2000, 4000, to_date('08-08-2008', 'dd-mm-yyyy'), to_date('08-08-2018', 'dd-mm-yyyy'));
+
+--插入供应商表两条信息
+create table SUPPLIER
+(
+  supno      NUMBER not null,
+  supname    VARCHAR2(10),
+  supallname VARCHAR2(10),
+  head       VARCHAR2(10),
+  headname   VARCHAR2(10),
+  tel        VARCHAR2(20),
+  fax        VARCHAR2(20),
+  mobtel     VARCHAR2(20),
+  address    VARCHAR2(20),
+  facaddress VARCHAR2(20),
+  importdate DATE
+);
+insert into SUPPLIER (SUPNO, SUPNAME, SUPALLNAME, HEAD, HEADNAME, TEL, FAX, MOBTEL, ADDRESS, FACADDRESS, IMPORTDATE)
+values (1, '睿道', '东软睿道', '经理', '刘德华', '18856496854', '184862545566', '13685483612', '大连', '大连', to_date('03-06-2015', 'dd-mm-yyyy'));
+insert into SUPPLIER (SUPNO, SUPNAME, SUPALLNAME, HEAD, HEADNAME, TEL, FAX, MOBTEL, ADDRESS, FACADDRESS, IMPORTDATE)
+values (2, '华信', '大连华信', '经理', '马德华', '18856496854', '184862545566', '13685483612', '大连', '大连', to_date('03-06-2015', 'dd-mm-yyyy'));
+
+--插入销售员表两条信息
+create table SALESMAN
+(
+  salesno NUMBER not null,
+  chiname VARCHAR2(10),
+  engname VARCHAR2(10),
+  tel     VARCHAR2(20),
+  mobtel  VARCHAR2(20),
+  address VARCHAR2(10)
+);
+insert into SALESMAN (SALESNO, CHINAME, ENGNAME, TEL, MOBTEL, ADDRESS)
+values (1, '汤姆', 'tom', '18888888888', '18888888888', 'dalian');
+insert into SALESMAN (SALESNO, CHINAME, ENGNAME, TEL, MOBTEL, ADDRESS)
+values (2, '莉莉', 'Lily', '19999999999', '18755555555', 'dalian');
+commit;

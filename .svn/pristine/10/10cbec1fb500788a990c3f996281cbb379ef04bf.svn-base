@@ -1,0 +1,14 @@
+#welcome{
+	font-family: "微软雅黑";
+	font-size: large;
+}
+#row1{
+	height: 100px;
+}
+#row2{
+	padding-top: 100px;
+}
+body{
+	background:url(../img/timg.jpg) no-repeat ;
+	background-size: 100%;
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="salesman">
+
+	<select id="queryAll" parameterType="salesman" resultType="Salesman">
+		select * from salesman
+		<where>
+			<if test="salesno!=null and salesno!=''">
+				and salesno = #{salesno}
+			</if>
+		</where>
+	</select>
+
+</mapper>

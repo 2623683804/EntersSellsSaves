@@ -1,0 +1,16 @@
+#cf{
+	padding-top: 60px;
+}
+#c2{
+	background-color: #D4D4D4;
+}
+#carousel-example-generic{
+	height: 400px;
+}
+#login{
+	padding-right: 20px;
+}
+
+#form1{
+	color£ºwhite;
+}

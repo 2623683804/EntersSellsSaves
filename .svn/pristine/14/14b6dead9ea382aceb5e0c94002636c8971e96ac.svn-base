@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="purinput">
+
+	<select id="queryAll" resultType="purinput">
+		select * from pur_input
+		<where>
+			<if test="purinid!='' and  purinid!=null">
+				and purinid = #{purinid}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="add" >
+		insert into pur_input (supno,purinid,supallname,cgdate,totalamount,comno,amount,unitprice) 
+		values(#{supno},my_sequence.nextval,#{supallname},#{cgdate},#{totalamount},#{comno},#{amount},#{unitprice})
+		<selectKey keyProperty="id" order="AFTER" resultType="Integer">
+			select
+			my_sequence.currval from dual
+		</selectKey>
+	</insert>
+
+	
+	
+</mapper>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+<resultMap type="com.neusoft.entity.User" id="UserAndPower">
+  <id column="id" property="id"/>
+  <result column="uname" property="uname"/>
+  <result column="pass" property="pass"/>
+  <result column="phone" property="phone"/>
+  <result column="ctype" property="ctype"/>
+  <association property="role" javaType="com.neusoft.entity.ROLE">
+   <id column="id" property="id"/>
+   <result column="ctype" property="ctype"/>
+   <collection property="powerList" ofType="com.neusoft.entity.Power">
+    <id column="id" property="id"/>
+    <result column="p_name" property="p_name"/>
+   </collection>
+  </association>
+</resultMap>
+	<insert id="zhuce" parameterType="user">
+		insert into
+		s_user(id,uname,pass,phone,ctype)
+		values(my_sequence.nextval,#{uname},#{pass},#{phone},#{ctype})
+
+	</insert>
+	<select id="validateLogin" resultType="user">
+		select * from s_user
+		where
+		uname=#{uname} and pass=#{pass}
+	</select>
+
+	<select id="queryByUname" resultType="user">
+		SELECT * from s_user where
+		uname=#{uname}
+	</select>
+
+	<select id="queryById" resultType="user">
+		select id,uname,pass from
+		s_user where id=#{id}
+
+	</select>
+
+	<select id="queryAll" resultType="user">
+		select id,uname,pass from s_user
+		<where>
+			<if test="id!=null and id!=''">
+				and id=#{id}
+			</if>
+
+		</where>
+	</select>
+
+	<update id="update" parameterType="user">
+		update s_user
+		<set>
+			<if test="uname!=null and uname!=''">
+				uname=#{uname},
+			</if>
+			<if test="pass!=null and pass!=''">
+				pass=#{pass},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<delete id="delete">
+		delete from s_user where id=#{id}
+	</delete>
+
+
+
+
+	<select id="queryAll2" resultType="user">
+		select id,uname,ctype from s_user
+		<where>
+			<if test="id!=null and id!=''">
+				and id=#{id}
+			</if>
+
+		</where>
+	</select>
+	<select id="queryById2" resultType="user">
+		select id,uname,ctype from
+		s_user where id=#{id}
+
+	</select>
+	
+		<update id="update2" parameterType="user">
+		update s_user
+		<set>
+			<if test="uname!=null and uname!=''">
+				uname=#{uname},
+			</if>
+			<if test="ctype!=null and ctype!=''">
+				pass=#{pass},
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<delete id="delete2">
+		delete from s_user where id=#{id}
+	</delete>
+	
+	
+	<select id="power" parameterType="user" resultMap="UserAndPower" >
+	SELECT u.id, u.uname, r.ctype, p.p_name
+  FROM s_user u, s_role r, s_power p, s_role_power rp
+  WHERE p.id = rp.p_id AND r.id = rp.r_id AND u.ctype = r.ctype
+  ORDER BY u.id;
+	</select>
+	
+	<select id="RoleId" parameterType="user">
+	select *from s_role 
+	where id=#{id}
+	</select>
+</mapper>

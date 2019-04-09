@@ -1,0 +1,10 @@
+package com.neusoft.zh.Service;
+
+import com.neusoft.entity.User;
+
+public interface UserServiceI {
+	public abstract User queryByUname(String uname);
+	
+	public abstract int add(User u);
+
+}

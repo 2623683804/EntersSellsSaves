@@ -1,0 +1,12 @@
+#md12{
+	height: 200px;
+	background-color: #00FFFF;
+}
+#md6-1{
+	height: 200px;
+	background-color: #1B6D85;
+}
+#md6-2{
+	height: 200px;
+	background-color: #67B168;
+}

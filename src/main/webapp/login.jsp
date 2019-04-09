@@ -1,0 +1,74 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/login.css" />
+		<script src="<%=request.getContextPath()%>/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="<%=request.getContextPath()%>/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<div class="container">
+			
+		</div>
+		<div class="row" id="row2">
+			<div class="panel panel-default col-md-6 col-md-offset-3">
+				<center>
+					<div class="panel-heading" id="welcome">欢迎登录</div>
+				</center>
+
+				<div class="panel-body">
+					<div class="col-md-12">
+					
+						<form class="form-horizontal" action="<%=request.getContextPath()%>/login.action" method="post">
+							
+							<div class="form-group">
+								<label class="col-md-2 control-label">username:</label>
+								<div class="col-md-10 has-feedback">
+									<input type="text" class="form-control" name="uname" autofocus="autofocus" id="" value="${cookie.uname.value }" placeholder="username" />
+									<span class="glyphicon glyphicon-user form-control-feedback"></span>
+									<span style="color:red">${msg }</span><br>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-md-2 control-label">password:</label>
+								<div class="col-md-10 has-feedback">
+									<input type="password" class="form-control" name="pass" id="" value="${cookie.pass['value'] }" placeholder="password" />
+									<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+								</div>
+							</div><br />
+							
+							<div class="form-group">
+								<label class="col-md-2 control-label">type：</label>
+								<div class="col-md-9 has-feedback">
+									<select class="form-control" name="ctype" values="${u.ctype }">
+										<option>仓库管理员</option>
+										<option>销售员</option>
+										<option>管理员</option>
+									</select> <span class="glyphicon glyphicon-phone form-control-feedback"></span>
+								</div>
+							</div>
+							
+							<br />
+							<div class="col-md-6">
+								<a class="btn btn-default btn-block" href="zhuce.jsp">注册</a>
+							</div>
+							<div class="col-md-6">
+								<button class="btn btn-primary btn-block">登录</button>
+							</div>
+							
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,45 @@
+package com.neusoft.lhs.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.neusoft.entity.Stock;
+import com.neusoft.lhs.dao.StockDAOI;
+
+@Service
+public class StockService implements StockServiceI{
+	@Autowired
+	private StockDAOI dao;
+	
+	@Override
+	public int add() {
+		return dao.add();
+	}
+	
+	@Override
+	public int delete() {
+		return dao.delete();
+	}
+	@Override
+	public List<Stock> queryById(Stock sto) {
+		return dao.queryById(sto);
+	}
+
+	@Override
+	public List<Stock> queryByName(Stock sto) {
+		return dao.queryByName(sto);
+	}
+
+	@Override
+	public List<Stock> queryCGDate(Stock sto) {
+		return dao.queryCGDate(sto);
+	}
+
+	@Override
+	public List<Stock> querySalesDate(Stock sto) {
+		return dao.querySalesDate(sto);
+	}
+
+}
